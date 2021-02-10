@@ -1,11 +1,11 @@
-const CAR_PRODUCT0s = "cartProductsId"; //SIRVE PARA GUARDAR O ABRIR ELEMENTOS DEL LOCAL STORAGE
+const CAR_PRODUCT0s = "cartProductsId"; 
 
-//funcion que dentro va a tener las funciones que se ejecutaran cuando la pagina ya se haya cargado por completo
+
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
 });
 
-//SACAR TODOS LOS PRODUCTOS DEL JSON CON UN FETCH
+
 function getProductsDb() {
     const url="../dbProductos.json";
 
