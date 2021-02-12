@@ -1,12 +1,10 @@
-const CART_PRODUCTOS = "cartProductsId"; //SIRVE PARA GUARDAR O ABRIR ELEMENTOS DEL LOCAL STORAGE
+const CART_PRODUCTOS = "cartProductsId"; 
 
-//funcion que dentro va a tener las funciones que se ejecutaran cuando la pagina ya se haya cargado por completo
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
     loadProductCart();
 });
 
-//SACAR TODOS LOS PRODUCTOS DEL JSON CON UN FETCH
 function getProductsDb() {
     const url="../dbProductos.json";
 
@@ -45,7 +43,6 @@ async function loadProducts() {
     document.getElementsByClassName("products")[0].innerHTML = html;
 }
 
-// funcion para abrir/cerrar carrito
 function openCloseCart() {
    const containerCart = document.getElementsByClassName("cart-products")[0];
 
@@ -86,7 +83,6 @@ function addProductCart(idProduct){
 async function loadProductCart(){
     const products = await getProductsDb();
 
-    // convertimos el resultado del localstorage en un array
     const localStorageItems = localStorage.getItem(CART_PRODUCTOS);
 
     let html = "";
@@ -99,14 +95,12 @@ async function loadProductCart(){
     }else{
         const idProductsSplit = localStorageItems.split(",");
         
-        // eliminamos los ids duplicados
         const idProductsCarts = Array.from(new Set(idProductsSplit));
         
-        //esto es para que haga cuatro iteraciones, cada iteracion sera por cada id
         idProductsCarts.forEach(id => {
             products.forEach(product => {
 
-                //si el id existe en la base de datos se genera el html
+                
                 if(id == product.id){
                     const quantity = countDuplicatesId(id, idProductsSplit);
                     const totalPrice= product.price * quantity;
@@ -136,7 +130,7 @@ async function loadProductCart(){
 }
 
 function deleteProductCart(idProduct){
-    //agarra los is y los pasa a un array
+    
     const idProductsCart = localStorage.getItem(CART_PRODUCTOS);
     const arrayIdProductsCart = idProductsCart.split(",");
     const resultIdDelete = deleteAllIds(idProduct, arrayIdProductsCart);
@@ -208,7 +202,6 @@ function decreaseQuantity(idProduct){
     loadProductCart();
 }
 
-//esta funcion cuenta cuantos duplicados hay
 function countDuplicatesId(value, arraysIds){
     let count = 0;
     arraysIds.forEach(id => {
@@ -219,7 +212,6 @@ function countDuplicatesId(value, arraysIds){
     return count;
 } 
 
-//hace un return siempre y cuando el id que venga se diferencie del que hay
 function deleteAllIds(id, arraysIds){
     return arraysIds.filter(itemId => {
         return itemId != id;
